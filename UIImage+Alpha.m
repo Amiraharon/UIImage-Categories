@@ -24,8 +24,12 @@
     
     CGFloat scale = MAX(self.scale, 1.0f);
     CGImageRef imageRef = self.CGImage;
-    size_t width = CGImageGetWidth(imageRef)*scale;
-    size_t height = CGImageGetHeight(imageRef)*scale;
+    // BUG: CGImageGetWidth(imageRef) returns the size in pixels NOT points
+    //size_t width = CGImageGetWidth(imageRef)*scale;
+    //size_t height = CGImageGetHeight(imageRef)*scale;
+    size_t width = CGImageGetWidth(imageRef);
+    size_t height = CGImageGetHeight(imageRef);
+
     
     // The bitsPerComponent and bitmapInfo values are hard-coded to prevent an "unsupported parameter combination" error
     CGContextRef offscreenContext = CGBitmapContextCreate(NULL,
